@@ -1,163 +1,140 @@
 <div align="center">
 
-# Exogram SDK
+# Exogram SDK & MCP Runtime
 
-### The Execution Authority Layer for Autonomous AI
+### Personal Neural Network · 7-Lab Specialist Swarm · Interactive Living Tiles · 0.07ms Action Governance
 
-**AI Proposes. Exogram Decides.**
+[![Production](https://img.shields.io/badge/Live_Workspace-exogram.ai%2Fdashboard%2Fchat-6d28d9?style=for-the-badge)](https://exogram.ai/dashboard/chat)
+[![Version](https://img.shields.io/badge/Version-3.3.0-059669?style=for-the-badge)](https://exogram.ai/changelog)
+[![Protocol](https://img.shields.io/badge/Specification-Exogram_Protocol_RFC-2563eb?style=for-the-badge)](https://github.com/Richard-Ewing/exogram-protocol-rfc)
+[![AWS Showcase](https://img.shields.io/badge/AWS-Startup_Showcase-f97316?style=for-the-badge)](https://aws.amazon.com/startups/showcase/startup-details/3340d267-ae86-4467-8775-4f0e60a3edc5)
 
-[![Production](https://img.shields.io/badge/status-production-brightgreen?style=flat-square)](https://exogram.ai)
-[![Version](https://img.shields.io/badge/version-3.2.0-violet?style=flat-square)](https://exogram.ai/changelog)
-[![License](https://img.shields.io/badge/license-proprietary-blue?style=flat-square)](https://exogram.ai/terms)
-[![AWS Showcase](https://img.shields.io/badge/AWS-Startup%20Showcase-orange?style=flat-square)](https://aws.amazon.com/startups/showcase/startup-details/3340d267-ae86-4467-8775-4f0e60a3edc5)
-
-[Website](https://exogram.ai) · [Docs](https://exogram.ai/docs) · [Changelog](https://exogram.ai/changelog) · [Protocol (EAAP)](https://github.com/Richard-Ewing/exogram-protocol-rfc)
+[Live Workspace](https://exogram.ai/dashboard/chat) · [Documentation](https://exogram.ai/docs) · [Protocol RFC](https://github.com/Richard-Ewing/exogram-protocol-rfc) · [Architecture](https://exogram.ai/architecture/runtime-governance)
 
 </div>
 
 ---
 
-## The Problem
+## Why Exogram Exists
 
-Every major AI framework — LangChain, CrewAI, AutoGen, Claude MCP — lets agents call APIs, modify databases, and execute workflows based entirely on probabilistic output. **There is no enforcement layer between what the AI suggests and what the system executes.**
+Standard LLM wrappers and agent frameworks fail in production for three structural reasons:
+1. **Cross-Session Amnesia & Context Noise**: Traditional RAG dumps raw vector chunks into the prompt, repeating duplicate facts and leaking irrelevant clauses.
+2. **Dead Text Instead of Interactive Work**: Most assistants output walls of Markdown instead of interactive, stateful UI deliverables or governed outbound actions.
+3. **Unverified Tool Execution & Single-Provider Fragility**: Probabilistic agents execute consequential actions without state-hash verification and fail whenever a single model provider hits HTTP 429.
 
-If the output looks structurally valid, it runs. No verification. No audit trail. No kill switch.
+**Exogram** solves all three inside a single closed-loop runtime:
 
-## The Solution
-
-Exogram is a deterministic **runtime governance layer** that intercepts every AI agent action at the execution boundary. Before any proposed action reaches your production infrastructure, Exogram evaluates it against policy, verifies state integrity, and renders a cryptographically signed `PERMIT` or `DENY` judgment.
-
-**Zero LLM inference in the decision path.** Same input → same output → every time.
-
----
-
-## How It Works
-
-```
-┌─────────────────────────────────────────────────────┐
-│  AI AGENT (GPT, Claude, Gemini, Llama, etc.)        │
-│  Proposes an action                                 │
-└────────────────────┬────────────────────────────────┘
-                     │
-                     ▼
-┌─────────────────────────────────────────────────────┐
-│  EXOGRAM RUNTIME GOVERNANCE                         │
-│                                                     │
-│  L1  Semantic Environment Construction              │
-│      Resolve conflicts, establish ground truth       │
-│                                                     │
-│  L2  Graph-Grounded Context Assembly                │
-│      Deterministic context sub-graph, no guessing    │
-│                                                     │
-│  L3  Deterministic Policy Evaluation                │
-│      7-gate judgment engine, zero probabilistic      │
-│      interpretation                                  │
-│                                                     │
-│  L4  Cryptographic Commit & Audit Chain             │
-│      SHA-256 hash-linked, append-only, immutable     │
-└────────────────────┬────────────────────────────────┘
-                     │
-                     ▼
-           PERMIT (signed token)
-                  or
-           DENY (with reason)
+```text
+┌───────────────────────────────────────────────────────────────────────────────────┐
+│ 1. PERSONAL NEURAL NETWORK (Work · People · Life Spheres)                         │
+│    • OpenViking L0/L1/L2 Progressive Clause Pruning & Entity Deduplication        │
+│    • HippoRAG 2 Spectral Personalized PageRank (D⁻¹/² A D⁻¹/²) Hub-Node Damping   │
+│    • 4-Way Reciprocal Rank Fusion (Pinecone Vectors + Lexical + Layer-2 Graph)    │
+└─────────────────────────────────────────┬─────────────────────────────────────────┘
+                                          │ Privacy-Minimized Context Packets
+                                          ▼
+┌───────────────────────────────────────────────────────────────────────────────────┐
+│ 2. 7-LAB SPECIALIST SWARM & ROUTELLM CAPABILITY POOL                              │
+│    • Dots (Graph Walker) · Claude (Strategy/Red-Team) · GrokBot (Counter-Audit)   │
+│    • OpenClaw (Live URL) · Perplexity (Citations)     · Hermes (Action Staging)   │
+│    • RouteLLM Capability Gating across Gemini, Groq, Cerebras, SambaNova, NIM     │
+└─────────────────────────────────────────┬─────────────────────────────────────────┘
+                                          │ Dual-Track SSE Stream + Turn Blackboard
+                                          ▼
+┌───────────────────────────────────────────────────────────────────────────────────┐
+│ 3. AG-UI LIVING TILES & EAAP CRYPTOGRAPHIC GOVERNANCE (0.07ms)                    │
+│    • Living Tiles: action_draft · checklist · decision_matrix · places_court      │
+│    • SHA-256 State-Hash Verification + Replay-Proof Execution Tokens              │
+└───────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Key Features
+## Core Capabilities
 
-| Feature | Description |
-|---------|-------------|
-| **0.07ms Latency** | Deterministic evaluation — no LLM in the decision path |
-| **7-Gate Judgment Engine** | Multi-factor policy evaluation with cryptographic signing |
-| **Interactive Knowledge Graph** | Force-directed visualization of your entire semantic trust network |
-| **Behavioral Synthesis** | AI-powered cross-entry inference for behavioral patterns and insights |
-| **Cryptographic Audit Chain** | SHA-256 hash-linked, append-only — every decision permanently provable |
-| **Agent Identity Gating** | Per-agent permit/deny lists enforced before policy evaluation |
-| **UUID-Hardened Identity** | Strict validation prevents spoofing and injection at every endpoint |
-| **Model Agnostic** | Works with GPT, Claude, Gemini, Llama — any model, any framework |
+| Capability | Architectural Primitive | Production Guarantee |
+| :--- | :--- | :--- |
+| **3-Sphere Personal Neural Network** | OpenViking L0/L1/L2 + HippoRAG 2 Spectral PPR | Consolidates duplicate entity cards, prunes unrelated composite clauses, and damps high-degree hub nodes (`1 / sqrt((1+deg(u))(1+deg(v)))`). |
+| **Per-Agent Privacy Minimization** | Context Privacy Classifier (`PUBLIC` to `RESTRICTED_PII_HEALTH`) | Web-research agents (`OpenClaw`, `Perplexity`) never receive private family or sensitive vault records. |
+| **7-Specialist Agent Swarm** | Parallel Structured Briefing Router | Concurrent execution of `Dots`, `Claude`, `GrokBot`, `OpenClaw`, `Perplexity`, `Kimi`, and `Hermes` with post-response `Used` vs. `Available` reconciliation. |
+| **Multi-Lab Capability Router** | RouteLLM Task Gating + Cooldown Registry | Automatic 429/503 slot cooldowns and task-profile filtering across Gemini, Anthropic, OpenAI, Grok, GitHub Models, Groq, Cerebras, SambaNova, NVIDIA NIM, and OpenRouter. |
+| **AG-UI Turn Blackboard & Living Tiles** | Dual-Track SSE + Deterministic Tile Compiler | Guarantees schema-validated interactive tiles (`action_draft`, `checklist`, `decision_matrix`, `places_court`) without leaking raw widget JSON into prose. |
+| **EAAP Execution Kernel** | 0.07ms SHA-256 State-Hash Gate | Binds consequential actions to a cryptographic state hash and halts on parameter tampering or token replay. |
 
 ---
 
-## Integrations
+## Quickstart: Model Context Protocol (MCP) & SDK Usage
 
-| Platform | Status |
-|----------|--------|
-| **REST API** | ✅ Production |
-| **Claude MCP** | ✅ Production |
-| **ChatGPT (Custom GPT)** | ✅ Production |
-| **Chrome Extension** | ✅ Production |
-| **LangChain** | ✅ Production |
-| **CrewAI** | ✅ Compatible |
-| **AutoGen** | ✅ Compatible |
+### 1. Connect Exogram MCP to Claude Desktop, Cursor, or Windsurf
 
----
+Add the Exogram MCP server to your `claude_desktop_config.json` or `.cursor/mcp.json`:
 
-## Architecture
+```json
+{
+  "mcpServers": {
+    "exogram": {
+      "command": "npx",
+      "args": ["-y", "mcp-server-exogram"],
+      "env": {
+        "EXOGRAM_API_KEY": "exo_live_..."
+      }
+    }
+  }
+}
+```
 
-Exogram occupies **Layer 4** in the AI infrastructure stack — the missing execution authority between orchestration and production systems:
+### 2. Evaluate & Authorize Consequential Agent Actions (Python SDK)
 
-| Layer | Role | Examples |
-|-------|------|----------|
-| L1 — Models | Probabilistic reasoning | GPT, Claude, Gemini, Llama |
-| L2 — Context | State and retrieval | RAG, vector stores, session state |
-| L3 — Orchestration | Task coordination | LangChain, CrewAI, AutoGen |
-| **L4 — Execution Authority** | **Deterministic governance** | **Exogram** |
+```python
+from exogram import ExogramClient
 
----
+client = ExogramClient(api_key="exo_live_...")
 
-## Getting Started
+# 1. Retrieve sphere-classified, HippoRAG-ranked context for the current turn
+context = client.neural_network.retrieve(
+    query="Draft a reply to James at ZestifyApp regarding partnership",
+    spheres=["Work", "People"],
+)
 
-Visit [exogram.ai/docs](https://exogram.ai/docs) to get started.
+# 2. Verify action admissibility via the 0.07ms EAAP deterministic kernel
+judgment = client.governance.evaluate_action(
+    agent_id="hermes",
+    action_type="email.send",
+    parameters={
+        "recipient": "James <james@zestifyapp.com>",
+        "subject": "Re: ZestifyApp Partnership Inquiry",
+    },
+    state_hash=context.state_hash,
+)
 
----
-
-## Use Cases
-
-- **Prevent AI Double-Spend** — Idempotency enforcement for financial operations
-- **Stop AI SQL Injection** — Block destructive queries before execution
-- **SOC 2 Audit Trails** — Compliance-ready logging for every AI decision
-- **HIPAA AI Constraints** — Healthcare-grade governance boundaries
-- **Fix AutoGen Loops** — Circuit-breaker patterns for multi-agent systems
-
-[All Use Cases →](https://exogram.ai/use-cases)
-
----
-
-## Compare
-
-[vs LangChain](https://exogram.ai/compare/exogram-vs-langchain) · [vs CrewAI](https://exogram.ai/compare/exogram-vs-crewai) · [vs Guardrails AI](https://exogram.ai/compare/exogram-vs-guardrails-ai) · [vs OpenAI](https://exogram.ai/compare/exogram-vs-openai) · [All Comparisons](https://exogram.ai/compare)
-
----
-
-## Security & Compliance
-
-- 🔒 AES-256 encryption at rest, TLS 1.3 in transit
-- 🔗 SHA-256 cryptographic audit chain
-- 🛡️ UUID-hardened identity at every boundary
-- 📋 SOC 2 Type II (in progress)
-- 🌐 GDPR compliant data export
-- 🏥 HIPAA BAA available (Enterprise)
-
-[Security & Compliance](https://exogram.ai/security)
+if judgment.permitted:
+    client.actions.execute(judgment.execution_token)
+```
 
 ---
 
-## About
+## Ecosystem Integrations
 
-Built by [Richard Ewing](https://richardewing.io) — AI Economist, published in Foundry and Built In.
+| Surface / Framework | Status | Description |
+| :--- | :--- | :--- |
+| **[Exogram AI Workspace](https://exogram.ai/dashboard/chat)** | ✅ Production | Full conversational workspace with Living Tiles, 7-Agent Swarm, and Context Inspector |
+| **Model Context Protocol (MCP)** | ✅ Production | Native MCP server for Claude Desktop, Cursor, Windsurf, and Antigravity |
+| **LangChain / LangGraph** | ✅ Production | Drop-in memory retriever and EAAP tool-execution guard ([Docs](https://exogram.ai/docs/sdk/langchain)) |
+| **REST & SSE Streaming API** | ✅ Production | Dual-track SSE streaming (`token`, `thinking_step`, `context_packet`, `agent_evidence`, `live_widget`) |
 
-> *"The biggest problem we face is that we are giving AI the keys to the car without building the brakes."*
+---
 
-[About Exogram](https://exogram.ai/about) · [Manifesto](https://exogram.ai/manifesto)
+## Security & Sovereignty
+
+* **AES-256 Vault Encryption**: Encrypted ledger persistence across Supabase Postgres and local SQLite WAL.
+* **SHA-256 Hash-Linked Audit Ledger**: Tamper-evident verification for every tool call and memory mutation.
+* **Zero Data Retention (ZDR) Routing**: Automatically filters out untrusted model pools whenever private vault context is active in a turn.
+* **Session-Only vs. Durable Memory Governance**: Rejects API keys/secrets from ever entering memory and keeps temporary tone/slider calibration session-scoped unless explicitly saved.
 
 ---
 
 <div align="center">
 
-**[exogram.ai](https://exogram.ai)**
-
-*Making autonomous intelligence persistent and verifiable.*
+Built by **[Richard Ewing](https://github.com/Richard-Ewing)** · **[exogram.ai](https://exogram.ai)**
 
 </div>
