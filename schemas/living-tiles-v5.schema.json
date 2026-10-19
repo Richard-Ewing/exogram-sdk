@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exogram.ai/schemas/living-tiles-v5.schema.json",
+  "title": "Exogram A2UI Composable Living Tiles Schema (Master Plan v5)",
+  "description": "JSON Schema specification for Exogram's Composable A2UI Living Tiles dispatched via Laya System 1 (<15ms deterministic fast-path) and Foundation Model System 2 synthesis with Provenance & Claim-Predicate Entailment validation.",
+  "type": "object",
+  "required": ["tile_type", "title", "data"],
+  "properties": {
+    "tile_type": {
+      "type": "string",
+      "description": "Canonical Living Tile discriminator.",
+      "enum": [
+        "action_draft",
+        "checklist",
+        "decision_matrix",
+        "curated_places",
+        "comparison_table",
+        "retail_deals_tile",
+        "media_watch_tile",
+        "occasion_countdown_tile",
+        "memory_undo_tile",
+        "agent_hud_tile",
+        "branded_diagram_tile",
+        "hyperframes_video_tile",
+        "instinct_computer_tile"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable header displayed at the top of the Living Tile."
+    },
+    "subtitle": {
+      "type": "string",
+      "description": "Optional secondary context line."
+    },
+    "sphere": {
+      "type": "string",
+      "enum": ["Work", "People", "Life"],
+      "default": "Life",
+      "description": "Personal Neural Network sphere associated with this tile."
+    },
+    "state_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-fA-F0-9_]+$",
+      "description": "Cryptographic SHA-256 vault state hash anchoring the tile's epistemic provenance."
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["verified_kernel", "untrusted_content"],
+      "properties": {
+        "verified_kernel": {
+          "type": "string",
+          "enum": [
+            "Neural Graph Kernel",
+            "Generative UI Kernel",
+            "Live Web & Places Scout",
+            "Action & Draft Kernel",
+            "Analytical Synthesis Kernel",
+            "Grounded Citation Kernel"
+          ]
+        },
+        "entailment_score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "untrusted_content": {
+          "type": "boolean",
+          "default": false
+        },
+        "residual_unknowns": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "description": "Tile-specific structured payload validated by tile_spec_validator.",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "action_draft": {
+      "type": "object",
+      "required": ["action_type", "recipient_or_target", "draft_body"],
+      "properties": {
+        "action_type": { "type": "string", "enum": ["email", "message", "calendar_invite", "api_mutation", "git_pr"] },
+        "recipient_or_target": { "type": "string" },
+        "subject": { "type": "string" },
+        "draft_body": { "type": "string" },
+        "requires_approval": { "type": "boolean", "default": true }
+      }
+    },
+    "checklist": {
+      "type": "object",
+      "required": ["items"],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "checked"],
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" },
+              "checked": { "type": "boolean" },
+              "owner": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "decision_matrix": {
+      "type": "object",
+      "required": ["criteria", "options"],
+      "properties": {
+        "criteria": { "type": "array", "items": { "type": "string" } },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "scores", "verdict"],
+            "properties": {
+              "name": { "type": "string" },
+              "scores": { "type": "object", "additionalProperties": { "type": "number" } },
+              "verdict": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "curated_places": {
+      "type": "object",
+      "required": ["places"],
+      "properties": {
+        "places": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "address", "rationale"],
+            "properties": {
+              "name": { "type": "string" },
+              "address": { "type": "string" },
+              "rating": { "type": "number" },
+              "rationale": { "type": "string" },
+              "source_url": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "comparison_table": {
+      "type": "object",
+      "required": ["columns", "rows"],
+      "properties": {
+        "columns": { "type": "array", "items": { "type": "string" } },
+        "rows": {
+          "type": "array",
+          "items": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "retail_deals_tile": {
+      "type": "object",
+      "required": ["items"],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["product_name", "merchant", "verified_price"],
+            "properties": {
+              "product_name": { "type": "string" },
+              "merchant": { "type": "string" },
+              "verified_price": { "type": "string" },
+              "url": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "media_watch_tile": {
+      "type": "object",
+      "required": ["title", "medium", "streaming_platforms"],
+      "properties": {
+        "title": { "type": "string" },
+        "medium": { "type": "string", "enum": ["film", "series", "documentary", "book", "podcast"] },
+        "release_year": { "type": "integer" },
+        "streaming_platforms": { "type": "array", "items": { "type": "string" } },
+        "why_it_fits": { "type": "string" }
+      }
+    },
+    "occasion_countdown_tile": {
+      "type": "object",
+      "required": ["occasion_name", "target_date", "days_remaining"],
+      "properties": {
+        "occasion_name": { "type": "string" },
+        "target_date": { "type": "string", "format": "date" },
+        "days_remaining": { "type": "integer" },
+        "person": { "type": "string" },
+        "prep_steps": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "memory_undo_tile": {
+      "type": "object",
+      "required": ["memory_id", "superseded_claim", "undo_endpoint"],
+      "properties": {
+        "memory_id": { "type": "string" },
+        "superseded_claim": { "type": "string" },
+        "new_claim": { "type": "string" },
+        "temporal_horizon": { "type": "string", "enum": ["ephemeral_episode", "recurring_event", "durable_trait"] },
+        "undo_endpoint": { "type": "string", "default": "/api/memory/undo" }
+      }
+    },
+    "agent_hud_tile": {
+      "type": "object",
+      "required": ["active_kernels"],
+      "properties": {
+        "active_kernels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kernel_name", "status", "cited"],
+            "properties": {
+              "kernel_name": {
+                "type": "string",
+                "enum": [
+                  "Neural Graph Kernel",
+                  "Generative UI Kernel",
+                  "Live Web & Places Scout",
+                  "Action & Draft Kernel",
+                  "Analytical Synthesis Kernel",
+                  "Grounded Citation Kernel"
+                ]
+              },
+              "status": { "type": "string", "enum": ["Complete · Cited", "Complete · Standby", "Running"] },
+              "cited": { "type": "boolean" },
+              "latency_ms": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "branded_diagram_tile": {
+      "type": "object",
+      "required": ["diagram_family", "svg_markup"],
+      "properties": {
+        "diagram_family": {
+          "type": "string",
+          "enum": ["architecture", "workflow", "timeline", "comparison", "concept_map", "property_zone_map"]
+        },
+        "palette": { "type": "string", "default": "plum_mineral" },
+        "svg_markup": { "type": "string" }
+      }
+    },
+    "hyperframes_video_tile": {
+      "type": "object",
+      "required": ["fps", "duration_frames", "composition_html"],
+      "properties": {
+        "fps": { "type": "integer", "default": 30 },
+        "duration_frames": { "type": "integer" },
+        "composition_html": { "type": "string" }
+      }
+    },
+    "instinct_computer_tile": {
+      "type": "object",
+      "required": ["session_id", "current_step", "requires_approval"],
+      "properties": {
+        "session_id": { "type": "string" },
+        "current_step": { "type": "string" },
+        "coordination_scope": { "type": "string", "enum": ["household_trusted", "work_a2a", "personal_errand"] },
+        "requires_approval": { "type": "boolean", "default": true },
+        "controls": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["Approve Step", "Take Over", "Abort"] }
+        }
+      }
+    }
+  }
+}

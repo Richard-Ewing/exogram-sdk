@@ -1,0 +1,39 @@
+{
+  "name": "@exogram/sdk",
+  "version": "0.2.0",
+  "description": "Official TypeScript & Node.js Client SDK for Exogram — Personal Neural Network, Encrypted Memory Vault & Instinct Action Governance",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "node --test"
+  },
+  "keywords": [
+    "exogram",
+    "memory",
+    "neural-network",
+    "governance",
+    "runtime",
+    "sdk",
+    "agent",
+    "llm",
+    "mcp",
+    "typescript"
+  ],
+  "author": "Richard Ewing <engineering@exogram.ai>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Richard-Ewing/exogram-sdk.git"
+  },
+  "homepage": "https://exogram.ai/docs/sdk",
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  }
+}
